@@ -26,10 +26,10 @@ __meta__ = {
 }
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 2 )
 
 [node name="HitBoxSprite" type="Sprite" parent="."]
-scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
