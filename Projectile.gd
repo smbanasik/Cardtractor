@@ -24,3 +24,8 @@ func init_sphere(projPosition, projectileRadians, projSpeed, projDamage):
 func _process(delta):
 	var velocity = Vector2.UP * startingVelocity
 	position += velocity * delta
+
+
+# Called from VisibilityNotifier2D
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()

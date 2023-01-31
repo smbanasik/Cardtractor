@@ -8,9 +8,11 @@ extends Area2D
 var screen_size
 export var playerSpeed = 400
 export var playerFastMultiplier = 0.5
-export var projectileSpeed = 200
+export var projectileSpeed = 500
 export var projectileDamage = 1
 var projectileRadians = 0
+var coolDownSpeed = 0.1
+var coolDowntime = coolDownSpeed
 
 # Our player was hit by something!
 signal playerHit
@@ -26,6 +28,7 @@ func _ready():
 func _process(delta):
 	var velocity = Vector2.ZERO
 	var playerFast = 1
+	coolDowntime -= delta
 	
 	# Get inputs
 	if Input.is_action_pressed("move_up"):
@@ -38,8 +41,9 @@ func _process(delta):
 		velocity.x -= 1
 	if Input.is_action_pressed("move_fast"):
 		playerFast = 1 * playerFastMultiplier
-	if Input.is_action_pressed("shoot_projectile"):
+	if Input.is_action_pressed("shoot_projectile") and coolDowntime < 0:
 		emit_signal("playerFiring", position + $ProjectilePoint.position, projectileRadians, projectileSpeed, projectileDamage)
+		coolDowntime = coolDownSpeed
 		
 	# If we're moving, scale vector to unit length and multiply by speed.
 	# This prevents diagonals from moving faster.
@@ -55,8 +59,6 @@ func _process(delta):
 	# between the min (0), and max (screen size)
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
-	
-
 
 # Something has contacted the player
 func _on_Player_body_entered(body):

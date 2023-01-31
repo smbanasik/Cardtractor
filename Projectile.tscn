@@ -25,3 +25,7 @@ frames = SubResource( 1 )
 [node name="HitBox" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
