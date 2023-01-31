@@ -37,8 +37,8 @@ func _process(delta):
 		playerFast = 1 * playerFastMultiplier
 	if Input.is_action_pressed("shoot_projectile"):
 		var proj = projectile.instance()
-		# Causes a runtime error
-		proj.position = position
+		proj.position = self.position
+		add_child(proj)
 		
 	# If we're moving, scale vector to unit length and multiply by speed.
 	# This prevents diagonals from moving faster.

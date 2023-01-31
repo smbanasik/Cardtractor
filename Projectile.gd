@@ -5,7 +5,8 @@ extends Area2D
 # var a = 2
 # var b = "text"
 
-var startingVelocity = 200
+export var startingVelocity = 200
+export var direction = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,4 +15,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = startingVelocity * delta
+	var velocity = Vector2.UP.rotated(direction) * startingVelocity
+	
+	position += velocity * delta
