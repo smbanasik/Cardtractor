@@ -32,4 +32,7 @@ shape = SubResource( 2 )
 [node name="HitBoxSprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
+[node name="ProjectilePoint" type="Node2D" parent="."]
+position = Vector2( 0, -24 )
+
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]

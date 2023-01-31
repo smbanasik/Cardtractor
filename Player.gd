@@ -5,13 +5,16 @@ extends Area2D
 # var a = 2
 # var b = "text"
 
-# Our player was hit by something!
-signal hit
-
+var screen_size
 export var playerSpeed = 400
 export var playerFastMultiplier = 0.5
-export(PackedScene) var projectile
-var screen_size
+export var projectileSpeed = 200
+export var projectileDamage = 1
+var projectileDirection = Vector2.UP
+
+# Our player was hit by something!
+signal playerHit
+signal playerFiring(projectilePosition, projectileDirection, projectileSpeed, projectileDamage)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,9 +39,7 @@ func _process(delta):
 	if Input.is_action_pressed("move_fast"):
 		playerFast = 1 * playerFastMultiplier
 	if Input.is_action_pressed("shoot_projectile"):
-		var proj = projectile.instance()
-		proj.position = self.position
-		add_child(proj)
+		emit_signal("playerFiring", $ProjectilePoint.position, projectileDirection, projectileSpeed, projectileDamage)
 		
 	# If we're moving, scale vector to unit length and multiply by speed.
 	# This prevents diagonals from moving faster.
