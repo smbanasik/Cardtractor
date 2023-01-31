@@ -10,11 +10,11 @@ export var playerSpeed = 400
 export var playerFastMultiplier = 0.5
 export var projectileSpeed = 200
 export var projectileDamage = 1
-var projectileDirection = Vector2.UP
+var projectileRadians = 0
 
 # Our player was hit by something!
 signal playerHit
-signal playerFiring(projectilePosition, projectileDirection, projectileSpeed, projectileDamage)
+signal playerFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,7 +39,7 @@ func _process(delta):
 	if Input.is_action_pressed("move_fast"):
 		playerFast = 1 * playerFastMultiplier
 	if Input.is_action_pressed("shoot_projectile"):
-		emit_signal("playerFiring", $ProjectilePoint.position, projectileDirection, projectileSpeed, projectileDamage)
+		emit_signal("playerFiring", position + $ProjectilePoint.position, projectileRadians, projectileSpeed, projectileDamage)
 		
 	# If we're moving, scale vector to unit length and multiply by speed.
 	# This prevents diagonals from moving faster.

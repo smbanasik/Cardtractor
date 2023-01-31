@@ -17,7 +17,7 @@ func _ready():
 #func _process(delta):
 
 
-func _on_Player_playerFiring(projectilePosition, projectileDirection, projectileSpeed, projectileDamage):
-	projectileSphere.instance()
-	projectileSphere.init()
-	add_child(projectileSphere)
+func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
+	var projSphere = projectileSphere.instance()
+	projSphere.init_sphere(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
+	add_child(projSphere)
