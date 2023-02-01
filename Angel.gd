@@ -24,7 +24,7 @@ func _ready():
 #	monitoring = true
 	$ThinkTime.start()
 
-
+var t = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO
@@ -34,8 +34,8 @@ func _process(delta):
 	# Interpolation makes angels more natural, kind of like animals, 
 	# not sure how to utilize with current vars though.
 	# Will need to play with it more, for now I think what we have is *okay*
-	#t += delta * 0.4
-	#position = position.linear_interpolate(angelTargetPoint, delta)
+	t += delta * 0.4
+	position = position.linear_interpolate(angelTargetPoint, delta)
 	
 	# Angel moves to ThinkPoint
 	if position.distance_to(angelTargetPoint) > 2:
@@ -44,7 +44,7 @@ func _process(delta):
 		hasAngelFired = true
 		emit_signal("angelFiring", "enemy", position, projectileRadians, projectileSpeed, projectileDamage)
 		
-	position += velocity * delta
+	#position += velocity * delta
 	
 	# Prevent angel from moving off screen by ensuring the value remains
 	# between the min (0), and max (screen size)

@@ -19,8 +19,9 @@ extends Node2D
 # - One type of emitter, capable of manipulating every aspect of every projectile through different modes/functions.
 # - It might get messy, but I can't think of another way right now.
 # - This would provide the most flexibility as enemies could use multiple attacks if need be.
-# Enemy spawning
 # Let enemies use multiple moves?
+# Enemy spawning
+# Player leveling :)
 # Develop line projectiles
 # Utilize beziers and interpolation found here:  https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
 # and get cooler curving projectiles/homing projectiles
