@@ -8,5 +8,5 @@ script = ExtResource( 2 )
 
 [node name="ThinkTime" type="Timer" parent="." index="3"]
 
-[connection signal="body_entered" from="." to="." method="_on_Angel_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Angel_area_entered"]
 [connection signal="timeout" from="ThinkTime" to="." method="_on_ThinkTime_timeout"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/playerStillRev02.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/playerHitBox.png" type="Texture" id=3]
+[ext_resource path="res://Emitter.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -33,4 +34,7 @@ texture = ExtResource( 3 )
 [node name="ProjectilePoint" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
-[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
+[node name="Emitter" parent="." instance=ExtResource( 4 )]
+scale = Vector2( 0.5, 0.5 )
+
+[connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]

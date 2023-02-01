@@ -7,7 +7,7 @@ extends Area2D
 
 var startingVelocity = 200
 var direction = 0
-var damage = 0
+var damage = 1
 
 func init_proj(projPosition, projectileRadians, projSpeed, projDamage):
 	position = projPosition
@@ -17,7 +17,7 @@ func init_proj(projPosition, projectileRadians, projSpeed, projDamage):
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
-#	
+#	monitorable = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
