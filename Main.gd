@@ -20,6 +20,7 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_action_pressed("left_click"):
 		var angel = enemyAngel.instance()
+		angel.init_angel(get_viewport().get_mouse_position())
 		add_child(angel)
 
 
