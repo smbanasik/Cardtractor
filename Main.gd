@@ -7,6 +7,7 @@ extends Node2D
 
 export(PackedScene) var projectileSphere
 export(PackedScene) var projectileCurved
+export(PackedScene) var projectileSine
 export(PackedScene) var enemyAngel
 
 
@@ -29,6 +30,6 @@ func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSp
 	#var projSphere = projectileSphere.instance()
 	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	#add_child(projSphere)
-	var projCurve = projectileCurved.instance()
-	projCurve.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 5, 0)
-	add_child(projCurve)
+	var projSine = projectileSine.instance()
+	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 5, 0)
+	add_child(projSine)
