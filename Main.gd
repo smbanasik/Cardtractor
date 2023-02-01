@@ -30,5 +30,5 @@ func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSp
 	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	#add_child(projSphere)
 	var projSine = projectileSine.instance()
-	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 5, 0)
+	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 1)
 	add_child(projSine)
