@@ -28,7 +28,7 @@ func _ready():
 func _process(delta):
 	var velocity = Vector2.ZERO
 	var playerFast = 1
-	var projectileSpeed = projectileBaseSpeed
+	var projectileSpeed = projectileBaseSpeed # i am angry at you
 	coolDowntime -= delta
 	
 	# Get inputs
