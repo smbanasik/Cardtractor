@@ -24,12 +24,19 @@ func _unhandled_input(event):
 	if event.is_action_pressed("left_click"):
 		var angel = enemyAngel.instance()
 		angel.init_angel(get_viewport().get_mouse_position())
+		# Connect main to angel's signals
+		angel.connect("angelFiring", self, "_on_Angel_angelFiring")
 		add_child(angel)
+		
+func _on_Angel_angelFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
+	var angelSphere = projectileSphere.instance()
+	angelSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
+	add_child(angelSphere)
 
 func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
 	#var projSphere = projectileSphere.instance()
 	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	#add_child(projSphere)
 	var projSine = projectileSine.instance()
-	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 1)
+	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.2, 1)
 	add_child(projSine)

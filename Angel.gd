@@ -7,10 +7,11 @@ extends Area2D
 var screen_size
 export var angelSpeed = 200
 export var angelMaxDistance = 60
-export var projectileSpeed = 500
+export var projectileSpeed = 100
 export var projectileDamage = 1
 var projectileRadians = PI
 var angelTargetPoint = Vector2()
+var hasAngelFired = true
 #var coolDownSpeed = 0.1
 #var coolDowntime = coolDownSpeed
 
@@ -30,7 +31,8 @@ func _process(delta):
 	# Angel moves to ThinkPoint
 	if position.distance_to(angelTargetPoint) > 2:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
-	else:
+	elif hasAngelFired == false:
+		hasAngelFired = true
 		emit_signal("angelFiring", position, projectileRadians, projectileSpeed, projectileDamage)
 		
 	position += velocity * delta
@@ -69,5 +71,5 @@ func _on_ThinkTime_timeout():
 	#print(angelTargetPoint)
 	angelTargetPoint.x = clamp(angelTargetPoint.x, 0, screen_size.x)
 	angelTargetPoint.y = clamp(angelTargetPoint.y, 0, screen_size.y)
-	
+	hasAngelFired = false
 	pass
