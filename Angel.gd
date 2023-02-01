@@ -6,7 +6,7 @@ extends Area2D
 # var b = "text"
 var screen_size
 export var angelSpeed = 200
-export var angelMaxDistance = 10
+export var angelMaxDistance = 60
 export var projectileSpeed = 500
 export var projectileDamage = 1
 var projectileRadians = PI
@@ -28,8 +28,10 @@ func _process(delta):
 	var velocity = Vector2.ZERO
 	
 	# Angel moves to ThinkPoint
-	if self.position >= self.position - angelTargetPoint:
+	if position.distance_to(angelTargetPoint) > 2:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
+	else:
+		emit_signal("angelFiring", position, projectileRadians, projectileSpeed, projectileDamage)
 		
 	position += velocity * delta
 	
@@ -53,12 +55,10 @@ func _on_ThinkTime_timeout():
 	rng.randomize()
 	
 	# Angel picks a direction
-	#var angelRadians = rng.randf_range(0, 2*PI)
-	var angelRadians = PI
+	var angelRadians = rng.randf_range(0, 2*PI)
 	# Angel picks a distance
 	rng.randomize()
-	#var angelDistance = rng.randf_range(0, angelMaxDistance)
-	var angelDistance = 5
+	var angelDistance = rng.randf_range(25, angelMaxDistance)
 	
 	# Angel moves a normalized vector * distance in the direction
 	var angelVector = Vector2.RIGHT.rotated(angelRadians) * angelDistance
