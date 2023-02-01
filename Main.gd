@@ -24,11 +24,10 @@ func _unhandled_input(event):
 		angel.init_angel(get_viewport().get_mouse_position())
 		add_child(angel)
 
-
 func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
 	#var projSphere = projectileSphere.instance()
 	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	#add_child(projSphere)
 	var projCurve = projectileCurved.instance()
-	projCurve.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 5, 0)
+	projCurve.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 1, 0)
 	add_child(projCurve)
