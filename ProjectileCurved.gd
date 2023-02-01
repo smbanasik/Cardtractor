@@ -9,7 +9,7 @@ var startingVelocity = 200
 var direction = 0
 var rotationSpeed = 0.1
 var endDirection = 0
-var damage = 0
+var damage = 1
 
 func init_proj(projPosition, projectileStartRadians, projSpeed, projDamage, projRotationSpeed, lifeTime, projectileEndRadians):
 	position = projPosition
@@ -22,6 +22,7 @@ func init_proj(projPosition, projectileStartRadians, projSpeed, projDamage, proj
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	monitorable = true
 	$Timer.start()	
 
 
