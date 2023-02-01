@@ -1,5 +1,6 @@
 extends Node2D
 
+# REMINDER FOR ORION: SHADERS = POLISH.
 
 # Declare member variables here. Examples:
 # var a = 2
