@@ -28,9 +28,8 @@ func _process(delta):
 	var velocity = Vector2.ZERO
 	
 	# Angel moves to ThinkPoint
-	if self.get_global_position() != angelTargetPoint:
-		velocity = Vector2.direction_to(angelTargetPoint) * angelSpeed
-		#print(angelTargetPoint)
+	if self.position != angelTargetPoint:
+		velocity = position.direction_to(angelTargetPoint) * angelSpeed
 		
 	position += velocity * delta
 	
@@ -46,6 +45,7 @@ func _on_Angel_body_entered(body):
 # Initialize angel things
 func init_angel(startPos):
 	position = startPos
+	angelTargetPoint = startPos
 
 # AI stuff
 func _on_ThinkTime_timeout():
@@ -53,21 +53,20 @@ func _on_ThinkTime_timeout():
 	rng.randomize()
 	
 	# Angel picks a direction
-	var angelRadians = rng.randf_range(0, 2*PI)
+	#var angelRadians = rng.randf_range(0, 2*PI)
+	var angelRadians = PI
 	# Angel picks a distance
 	rng.randomize()
-	var angelDistance = rng.randf_range(0, angelMaxDistance)
+	#var angelDistance = rng.randf_range(0, angelMaxDistance)
+	var angelDistance = 5
 	
 	# Angel moves a normalized vector * distance in the direction
 	var angelVector = Vector2.RIGHT.rotated(angelRadians) * angelDistance
-	print(angelRadians)
-	print(angelDistance)
-	print(angelVector)
 	
 	# Current position + vector = thinkPoint, clamped from 0 : screensize
-	angelTargetPoint = self.get_global_position() + angelVector
-	print(self.get_global_position())
-	print(angelTargetPoint)
+	angelTargetPoint = position + angelVector
+	#print(position)
+	#print(angelTargetPoint)
 	angelTargetPoint.x = clamp(angelTargetPoint.x, 0, screen_size.x)
 	angelTargetPoint.y = clamp(angelTargetPoint.y, 0, screen_size.y)
 	

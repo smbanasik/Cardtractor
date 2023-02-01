@@ -6,6 +6,7 @@ extends Node2D
 # var b = "text"
 
 export(PackedScene) var projectileSphere
+export(PackedScene) var projectileCurved
 export(PackedScene) var enemyAngel
 
 
@@ -25,6 +26,9 @@ func _unhandled_input(event):
 
 
 func _on_Player_playerFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
-	var projSphere = projectileSphere.instance()
-	projSphere.init_sphere(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
-	add_child(projSphere)
+	#var projSphere = projectileSphere.instance()
+	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
+	#add_child(projSphere)
+	var projCurve = projectileCurved.instance()
+	projCurve.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.1, 5, 0)
+	add_child(projCurve)
