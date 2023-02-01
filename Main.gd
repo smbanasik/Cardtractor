@@ -20,7 +20,7 @@ extends Node2D
 # - It might get messy, but I can't think of another way right now.
 # - This would provide the most flexibility as enemies could use multiple attacks if need be.
 # Let enemies use multiple moves?
-# Enemy spawning
+# Enemy spawning/ level system
 # Player leveling :)
 # Develop line projectiles
 # Utilize beziers and interpolation found here:  https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
