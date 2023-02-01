@@ -7,6 +7,7 @@ extends Area2D
 var screen_size
 export var angelSpeed = 400
 var angelRadians = 0
+var angel
 export var projectileSpeed = 500
 export var projectileDamage = 1
 var projectileRadians = PI
@@ -38,4 +39,4 @@ func _on_Angel_body_entered(body):
 # AI stuff
 func _on_ThinkTime_timeout():
 	
-	
+	pass

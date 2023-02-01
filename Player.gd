@@ -8,7 +8,7 @@ extends Area2D
 var screen_size
 export var playerSpeed = 400
 export var playerFastMultiplier = 0.5
-export var projectileSpeed = 500
+export var projectileBaseSpeed = 500
 export var projectileDamage = 1
 var projectileRadians = 0
 var coolDownSpeed = 0.1
@@ -28,6 +28,7 @@ func _ready():
 func _process(delta):
 	var velocity = Vector2.ZERO
 	var playerFast = 1
+	var projectileSpeed = projectileBaseSpeed
 	coolDowntime -= delta
 	
 	# Get inputs
@@ -41,6 +42,7 @@ func _process(delta):
 		velocity.x -= 1
 	if Input.is_action_pressed("move_fast"):
 		playerFast = 1 * playerFastMultiplier
+		projectileSpeed = projectileSpeed * playerFastMultiplier
 	if Input.is_action_pressed("shoot_projectile") and coolDowntime < 0:
 		emit_signal("playerFiring", position + $ProjectilePoint.position, projectileRadians, projectileSpeed, projectileDamage)
 		coolDowntime = coolDownSpeed
