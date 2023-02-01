@@ -13,7 +13,6 @@ var projectileRadians = PI
 #var coolDownSpeed = 0.1
 #var coolDowntime = coolDownSpeed
 
-
 signal angelHit
 signal angelFiring(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 
