@@ -6,7 +6,7 @@ extends Area2D
 # var b = "text"
 
 var screen_size
-export var playerSpeed = 400
+export var playerSpeed = 300
 export var playerFastMultiplier = 0.5
 export var projectileBaseSpeed = 500
 export var projectileDamage = 1

@@ -16,7 +16,9 @@ height = 32.0
 [node name="GenericEnemy" type="Area2D"]
 
 [node name="Animations" type="AnimatedSprite" parent="."]
+position = Vector2( 1, 0 )
 frames = SubResource( 1 )
+offset = Vector2( -1, 0 )
 __meta__ = {
 "_edit_group_": true
 }
