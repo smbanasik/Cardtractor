@@ -6,6 +6,23 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+# THINGS TO DO:
+# todo's in angel & player
+# Enemy spawning
+# Let enemies use multiple moves?
+# Develop line projectiles
+# Utilize beziers and interpolation found here:  https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
+# and get cooler curving projectiles/homing projectiles
+# Actually work on the card game
+# Rename main to bullet hell
+# Work on card format
+# Create a main menu
+
+# PROCESS FOR LETTING ENEMIES USE MULTIPLE MOVES:
+# rather than having a signal per enemy, have a signal per projectile (since signals are just strings)
+# And handle which move to use inside of enemy ai.
+# We can make enemies have different init functions to manage this and connect to the signals we want our enemy to use
+
 export(PackedScene) var projectileSphere
 export(PackedScene) var projectileCurved
 export(PackedScene) var projectileSine

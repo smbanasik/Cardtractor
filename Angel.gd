@@ -28,6 +28,9 @@ func _ready():
 func _process(delta):
 	var velocity = Vector2.ZERO
 	
+	# TODO: Change to interpolation method and see if can change 
+	# Method of firing.
+	
 	# Angel moves to ThinkPoint
 	if position.distance_to(angelTargetPoint) > 2:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
@@ -42,9 +45,13 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 
+# TODO: Set up collision for angels
+
 # Something collides with angel, kill it
 func _on_Angel_body_entered(body):
 	$HitBox.set_deffered("disabled", true)
+
+# TODO: Add more start variables for angels.
 
 # Initialize angel things
 func init_angel(startPos):

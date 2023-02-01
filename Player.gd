@@ -62,6 +62,8 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 
+# TODO: Do collision and end the game
+
 # Something has contacted the player
 func _on_Player_body_entered(body):
 	# Player does things on being hit, like play an animation or sound
