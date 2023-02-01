@@ -28,7 +28,7 @@ func _process(delta):
 	var velocity = Vector2.ZERO
 	
 	# Angel moves to ThinkPoint
-	if self.position != angelTargetPoint:
+	if self.position >= self.position - angelTargetPoint:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
 		
 	position += velocity * delta
