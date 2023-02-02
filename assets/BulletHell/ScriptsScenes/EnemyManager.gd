@@ -11,12 +11,18 @@ var waveSpawnProgress = 0
 var level = 1
 var difficulty = 0
 
-var levelStartTime
-var levelCurrentTime
+# Records start of level
+var levelStartTime = 0
+# Records the start of a wave
+var waveStartTime = 0
+# Records current time
+var levelCurrentTime = 0
+# Records any time between start & current time
+var levelInterTime = 0
 
 # Send an string enemy type, an array of enemy values, and a 2d array of positions & wait times
 signal spawnEnemy(enemyType, enemyData, enemyMovement)
-signal endLevel
+signal endLevel(level)
 # Called when the node enters the scene tree for the first time.
 #func _ready():
 	
@@ -38,6 +44,7 @@ func _process(delta):
 func _on_Node2D_startLevel(signalDifficulty, signalLevel):
 	difficulty = signalDifficulty
 	levelStartTime = Time.get_ticks_msec()
+	waveStartTime = levelStartTime
 	level = signalLevel
 	wave = 1
 	waveSpawnProgress = 0
@@ -46,8 +53,9 @@ func _on_Node2D_startLevel(signalDifficulty, signalLevel):
 func _on_BulletHell_waveClear():
 	wave += 1
 	waveSpawnProgress = 0
+	waveStartTime = levelCurrentTime
 	if wave > maxWave:
-		emit_signal("endLevel")
+		emit_signal("endLevel", level)
 
 # Decides which level function to use
 func levelDecider():
@@ -64,14 +72,29 @@ func levelDecider():
 func levelOne():
 	maxWave = 5
 	
-	var angelData = [Vector2(1000, 200), 1, 100, false]
+	var angelData = [Vector2(0, 0), 1, 100, false]
 	
-	# Spawn in two enemies that don't use AI at the right of the screen
-	emit_signal("spawnEnemy", "angel", angelData, [[], []])
-	angelData[0] = Vector2(1000, 500)
-	emit_signal("spawnEnemy", "angel", angelData, [[], []])
-	
-	# IMPORTANT
-	waveSpawnProgress = 100
+	match [wave]:
+		[_]:
+			if (levelInterTime == 0):
+					levelInterTime = levelCurrentTime
+			# Spawn in two enemies that don't use AI at the right of the screen
+			if (waveSpawnProgress < 50 and levelCurrentTime - levelInterTime > 200):
+				angelData[0] = Vector2(1000 - waveSpawnProgress * 1.5, 200 + waveSpawnProgress / 2)
+				emit_signal("spawnEnemy", "angel", angelData, [[], []])
+				angelData[0] = Vector2(1000 - waveSpawnProgress * 1.5, 500 - waveSpawnProgress / 2)
+				emit_signal("spawnEnemy", "angel", angelData, [[], []])
+				waveSpawnProgress += 10
+				levelInterTime = levelCurrentTime
+			if (levelCurrentTime - waveStartTime > 5000):
+				angelData[0] = Vector2(1200, 200)
+				emit_signal("spawnEnemy", "angel", angelData, [[], []])
+				angelData[0] = Vector2(1200, 500)
+				emit_signal("spawnEnemy", "angel", angelData, [[], []])
+				
+				# IMPORTANT
+				waveSpawnProgress = 100
+				# Not important, doing for sake of testing
+				levelInterTime = 0
 	
 	pass

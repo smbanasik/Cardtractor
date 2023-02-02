@@ -43,6 +43,8 @@ export(PackedScene) var projectileSine
 export(PackedScene) var enemyAngel
 
 var playerScore = 0
+var waveEnemies = 0
+var enemiesKilled = 0
 
 signal waveClear
 signal startLevel(difficulty, level)
@@ -82,6 +84,9 @@ func _on_Angel_angelHit():
 	playerScore += 10
 	$Player.experience += 5
 	print("+1 kills!")
+	enemiesKilled += 1
+	if enemiesKilled >= waveEnemies:
+		emit_signal("waveClear")
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
 	var angelSphere = projectileSphere.instance()
@@ -114,8 +119,12 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 			add_child(createdEnemy)
 			pass
 	
+	# TODO: Current method allows for a bug where if all enemies are killed fast enough, the wave is cleared.
+	# Might be desireable, if not, can fix.
+	waveEnemies += 1
 
 
-func _on_EnemyManager_endLevel():
+func _on_EnemyManager_endLevel(level):
+	print("Level ended, moving on to level: " + str(level))
 	#Handle next level things
 	pass # Replace with function body.
