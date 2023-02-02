@@ -22,7 +22,7 @@ func init_proj(projPosition, projectileRadians, projSpeed, projDamage):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var velocity = Vector2.UP.rotated(direction) * startingVelocity
+	var velocity = Vector2.RIGHT.rotated(direction) * startingVelocity
 	position += velocity * delta
 
 # Called from VisibilityNotifier2D

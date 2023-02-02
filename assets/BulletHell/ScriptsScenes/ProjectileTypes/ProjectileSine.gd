@@ -26,7 +26,7 @@ func init_proj(projPosition, projectileRadians, projSpeed, projDamage, projDensi
 # Multiplying the cosine wave by numbers in the rotation does *very* interesting things, 10 and 5 are cool.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var velocity = Vector2.UP.rotated(amp * cos(tick) + direction) * startingVelocity
+	var velocity = Vector2.RIGHT.rotated(amp * cos(tick) + direction) * startingVelocity
 	position += velocity * delta
 	tick += density
 	
