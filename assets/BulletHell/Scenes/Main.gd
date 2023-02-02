@@ -30,6 +30,9 @@ extends Node2D
 # Work on card format
 # Create a main menu
 
+# TODO: Might be better to rip out the timer from angel and replace it with ticks
+# for the purposes of firing, waiting, and so on. We'll see.
+
 # PROCESS FOR LETTING ENEMIES USE MULTIPLE MOVES:
 # rather than having a signal per enemy, have a signal per projectile (since signals are just strings)
 # And handle which move to use inside of enemy ai.
@@ -40,10 +43,14 @@ export(PackedScene) var projectileCurved
 export(PackedScene) var projectileSine
 export(PackedScene) var enemyAngel
 
+var playerScore = 0
+
+signal waveClear
+signal startLevel(difficulty, level)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	emit_signal("startLevel", 0, 1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,15 +58,17 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("left_click"):
-		var angel = enemyAngel.instance()
-		angel.init_angel(get_viewport().get_mouse_position())
-		angel.init_angelTargetArray([Vector2(1000, 20), Vector2(900, 600), Vector2(1100, 200), Vector2(10, 80)])
-		# Connect main to angel's signals
-		angel.connect("angelFiring", self, "_on_Angel_angelFiring")
-		angel.connect("angelHit", self, "_on_Angel_angelHit")
-		add_child(angel)
+		emit_signal("startLevel", 0, 1)
+#		var angel = enemyAngel.instance()
+#		angel.init_angel(get_viewport().get_mouse_position())
+#		angel.init_angelTargetArray([Vector2(1000, 20), Vector2(900, 600), Vector2(1100, 200), Vector2(10, 80)])
+#		# Connect main to angel's signals
+#		angel.connect("angelFiring", self, "_on_Angel_angelFiring")
+#		angel.connect("angelHit", self, "_on_Angel_angelHit")
+#		add_child(angel)
 		
 func _on_Angel_angelHit():
+	playerScore += 10
 	print("+1 kills!")
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
@@ -77,3 +86,19 @@ func _on_Player_playerFiring(projTeam, projectilePosition, projectileRadians, pr
 	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.2, 1)
 	projSine.add_to_group(projTeam)
 	add_child(projSine)
+
+
+func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
+	var createdEnemy
+	
+	match [enemyType]:
+		["angel"]:
+			createdEnemy = enemyAngel.instance()
+			createdEnemy.init_angel(enemyData[0], enemyData[1], enemyData[2], enemyData[3])
+			createdEnemy.init_angelTargetArray(enemyMovement[0], enemyMovement[1])
+			# Connect main to angel's signals
+			createdEnemy.connect("angelFiring", self, "_on_Angel_angelFiring")
+			createdEnemy.connect("angelHit", self, "_on_Angel_angelHit")
+			add_child(createdEnemy)
+			pass
+	

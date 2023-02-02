@@ -28,7 +28,7 @@ func init_proj(projPosition, projectileRadians, projSpeed, projDamage, projDensi
 func _process(delta):
 	var velocity = Vector2.RIGHT.rotated(amp * cos(tick) + direction) * startingVelocity
 	position += velocity * delta
-	tick += density
+	tick += delta * density * 50
 	
 # Called from VisibilityNotifier2D
 func _on_VisibilityNotifier2D_screen_exited():
