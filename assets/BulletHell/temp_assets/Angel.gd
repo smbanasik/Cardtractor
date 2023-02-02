@@ -11,6 +11,8 @@ export var projectileSpeed = 100
 export var projectileDamage = 1
 var projectileRadians = PI
 var angelTargetPoint = Vector2()
+var targetArray
+var useTargetArray = false
 var hasAngelFired = true
 #var coolDownSpeed = 0.1
 #var coolDowntime = coolDownSpeed
@@ -23,12 +25,15 @@ func _ready():
 	screen_size = get_viewport_rect().size
 #	monitoring = true
 	$ThinkTime.start()
+	useTargetArray = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO
 	
+	if useTargetArray == true:
+		angelTargetPoint = targetArray.front()
 	# TODO: Change to interpolation method and see if can change 
 	# method of firing???
 	# Interpolation makes angels more natural, kind of like animals, 
@@ -40,9 +45,15 @@ func _process(delta):
 	# Angel moves to ThinkPoint
 	if position.distance_to(angelTargetPoint) > 2:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
-	elif hasAngelFired == false:
-		hasAngelFired = true
-		emit_signal("angelFiring", "enemy", position, projectileRadians, projectileSpeed, projectileDamage)
+	else:
+		if targetArray.size() != 0:
+			targetArray.pop_front()
+			if targetArray.size() == 0:
+				useTargetArray = false
+				
+		if hasAngelFired == false:
+			hasAngelFired = true
+			emit_signal("angelFiring", "enemy", position, projectileRadians, projectileSpeed, projectileDamage)
 		
 	position += velocity * delta
 	
@@ -50,6 +61,7 @@ func _process(delta):
 	# between the min (0), and max (screen size)
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	
 
 # TODO: Add more start variables for angels.
 
@@ -57,6 +69,11 @@ func _process(delta):
 func init_angel(startPos):
 	position = startPos
 	angelTargetPoint = startPos
+	#useTargetArray = angelUseTargetArray
+	
+#Initialize a path for the angel to follow.
+func init_angelTargetArray(angelTargetArray):
+	targetArray = angelTargetArray
 
 # AI stuff
 func _on_ThinkTime_timeout():
