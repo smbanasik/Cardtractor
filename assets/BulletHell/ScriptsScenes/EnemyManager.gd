@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 var wave = 1
+var maxWave = 1
 # Expressed as a percentage
 var waveSpawnProgress = 0
 var level = 1
@@ -15,6 +16,7 @@ var levelCurrentTime
 
 # Send an string enemy type, an array of enemy values, and a 2d array of positions & wait times
 signal spawnEnemy(enemyType, enemyData, enemyMovement)
+signal endLevel
 # Called when the node enters the scene tree for the first time.
 #func _ready():
 	
@@ -44,6 +46,8 @@ func _on_Node2D_startLevel(signalDifficulty, signalLevel):
 func _on_BulletHell_waveClear():
 	wave += 1
 	waveSpawnProgress = 0
+	if wave > maxWave:
+		emit_signal("endLevel")
 
 # Decides which level function to use
 func levelDecider():
@@ -58,11 +62,13 @@ func levelDecider():
 			pass
 
 func levelOne():
-	var angelData = [Vector2(500, 100), 1, 100, false]
+	maxWave = 5
+	
+	var angelData = [Vector2(1000, 200), 1, 100, false]
 	
 	# Spawn in two enemies that don't use AI at the right of the screen
 	emit_signal("spawnEnemy", "angel", angelData, [[], []])
-	angelData[0] = Vector2(600, 200)
+	angelData[0] = Vector2(1000, 500)
 	emit_signal("spawnEnemy", "angel", angelData, [[], []])
 	
 	# IMPORTANT

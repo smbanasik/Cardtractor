@@ -20,7 +20,6 @@ extends Node2D
 # - It might get messy, but I can't think of another way right now.
 # - This would provide the most flexibility as enemies could use multiple attacks if need be.
 # Let enemies use multiple moves?
-# Enemy spawning/ level system
 # Player leveling :)
 # Develop line projectiles
 # Utilize beziers and interpolation found here:  https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
@@ -50,15 +49,27 @@ signal startLevel(difficulty, level)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Get the size of the screen and set our background to it
+	$ParallaxBackground/ParallaxLayer/Background.rect_size = get_viewport_rect().size
+	# Ensure our offset is 0,0 so top of background matches top of screen
+	$ParallaxBackground.scroll_base_offset = Vector2(0, 0)
+	# Set our motion mirroring to the screen size so the transition is smooth.
+	$ParallaxBackground/ParallaxLayer.motion_mirroring = (get_viewport_rect().size)
+	# Start our first level
 	emit_signal("startLevel", 0, 1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
+func _process(delta):
+	# 100 * delta is our scroll speed.
+	$ParallaxBackground.scroll_offset.x += 100 * delta
+	pass
+	# Check if enemies are dead, if so, run wave clear
+	# if recieve end level signal, do end level things
 
-func _unhandled_input(event):
-	if event.is_action_pressed("left_click"):
-		emit_signal("startLevel", 0, 1)
+#func _unhandled_input(event):
+#	if event.is_action_pressed("left_click"):
+#		emit_signal("startLevel", 0, 1)
 #		var angel = enemyAngel.instance()
 #		angel.init_angel(get_viewport().get_mouse_position())
 #		angel.init_angelTargetArray([Vector2(1000, 20), Vector2(900, 600), Vector2(1100, 200), Vector2(10, 80)])
@@ -69,6 +80,7 @@ func _unhandled_input(event):
 		
 func _on_Angel_angelHit():
 	playerScore += 10
+	$Player.experience += 5
 	print("+1 kills!")
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
@@ -102,3 +114,8 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 			add_child(createdEnemy)
 			pass
 	
+
+
+func _on_EnemyManager_endLevel():
+	#Handle next level things
+	pass # Replace with function body.
