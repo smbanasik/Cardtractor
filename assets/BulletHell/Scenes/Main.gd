@@ -1,5 +1,3 @@
-extends Node2D
-
 # REMINDER FOR ORION: SHADERS = POLISH.
 
 # Declare member variables here. Examples:
@@ -34,6 +32,9 @@ extends Node2D
 # rather than having a signal per enemy, have a signal per projectile (since signals are just strings)
 # And handle which move to use inside of enemy ai.
 # We can make enemies have different init functions to manage this and connect to the signals we want our enemy to use
+
+
+extends Node2D
 
 export(PackedScene) var projectileSphere
 export(PackedScene) var projectileCurved
