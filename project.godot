@@ -11,8 +11,8 @@ config_version=4
 [application]
 
 config/name="Cardtractor"
-run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://assets/BulletHell/Scenes/Main.tscn"
+config/icon="res://assets/BulletHell/temp_assets/icon.png"
 
 [display]
 
@@ -78,4 +78,4 @@ common/enable_pause_aware_picking=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/filters/anisotropic_filter_level=1
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://assets/BulletHell/default_env.tres"
