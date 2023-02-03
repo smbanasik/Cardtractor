@@ -82,12 +82,17 @@ func _process(delta):
 #		add_child(angel)
 		
 func _on_Angel_angelHit():
+	hitStop(0.2, 0.3)
 	playerScore += 10
 	$Player.experience += 5
 	print("+1 kills!")
 	enemiesKilled += 1
 	if enemiesKilled >= waveEnemies:
 		emit_signal("waveClear")
+
+func _on_Player_playerHit(playerLives):
+	hitStop(0.1, 0.4)
+	pass # Replace with function body.
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
 	var angelSphere = projectileSphere.instance()
@@ -129,3 +134,12 @@ func _on_EnemyManager_endLevel(level):
 	print("Level ended, moving on to level: " + str(level))
 	#Handle next level things
 	pass # Replace with function body.
+	
+	
+# Example, 0.1, 0.4 seconds or so
+func hitStop(timeScale, duration):
+	# Lower time scale to value
+	Engine.time_scale = timeScale
+	# Create a timer and wait until it's timeout occurs
+	yield(get_tree().create_timer(duration * timeScale), "timeout")
+	Engine.time_scale = 1.0

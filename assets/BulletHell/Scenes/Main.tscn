@@ -38,5 +38,6 @@ position = Vector2( 86, 199 )
 [connection signal="startLevel" from="." to="EnemyManager" method="_on_Node2D_startLevel"]
 [connection signal="waveClear" from="." to="EnemyManager" method="_on_BulletHell_waveClear"]
 [connection signal="playerFiring" from="Player" to="." method="_on_Player_playerFiring"]
+[connection signal="playerHit" from="Player" to="." method="_on_Player_playerHit"]
 [connection signal="endLevel" from="EnemyManager" to="." method="_on_EnemyManager_endLevel"]
 [connection signal="spawnEnemy" from="EnemyManager" to="." method="_on_EnemyManager_spawnEnemy"]
