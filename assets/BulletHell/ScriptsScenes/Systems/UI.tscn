@@ -23,9 +23,9 @@ __meta__ = {
 }
 
 [node name="CardsTimer" type="RichTextLabel" parent="UIText"]
-margin_right = 110.0
+margin_right = 221.0
 margin_bottom = 40.0
-text = "Time until cards:"
+text = "Time until cards: "
 
 [node name="Score" type="RichTextLabel" parent="UIText"]
 margin_left = -1.0
@@ -40,7 +40,7 @@ margin_left = -1.0
 margin_top = 33.0
 margin_right = 98.0
 margin_bottom = 73.0
-text = "Game Level:"
+text = "Game Level: "
 
 [node name="Lives" type="RichTextLabel" parent="UIText"]
 margin_left = 98.0

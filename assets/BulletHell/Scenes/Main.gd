@@ -43,11 +43,15 @@ export(PackedScene) var projectileCurved
 export(PackedScene) var projectileSine
 export(PackedScene) var enemyAngel
 
-var playerScore = 0
 var waveEnemies = 0
 var enemiesKilled = 0
 var startTime = 0
+var currentTime = 0
+# TEMP VAR, eventuall use timer
 var cardTimer = 0
+var playerLives = 5
+var playerLevel = 0
+var playerScore = 0
 
 signal waveClear
 signal startLevel(difficulty, level)
@@ -69,13 +73,21 @@ func _ready():
 	$ParallaxBackground/CloudsGround.motion_scale.x = 1.5
 	$ParallaxBackground/MidGround.motion_scale.x = 3
 	
+	# Update UI with life count and game level 
+	$UserInterface.initUIVars(1, playerLives)
+	startTime = Time.get_ticks_msec()
+	
 	# Start our first level
 	emit_signal("startLevel", 0, 1)
-	$UserInterface.initUIVars(0, 5)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# 100 * delta is our scroll speed.
+	
+	currentTime = Time.get_ticks_msec()
+	
+	var elapsedTime = (currentTime - startTime) / 1000
+	$UserInterface.updateUI(cardTimer, playerScore, playerLives, playerLevel, elapsedTime)
+	
 	$ParallaxBackground.scroll_offset.x -= 20 * delta
 	pass
 	# Check if enemies are dead, if so, run wave clear
@@ -103,7 +115,7 @@ func _on_Angel_angelHit():
 
 func _on_Player_playerHit(playerLives):
 	hitStop(0.1, 0.4)
-	
+	self.playerLives = playerLives
 	# lol
 	if(playerLives <= 0):
 		get_tree().quit()
