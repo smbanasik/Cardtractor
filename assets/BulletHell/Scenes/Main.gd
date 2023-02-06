@@ -46,6 +46,8 @@ export(PackedScene) var enemyAngel
 var playerScore = 0
 var waveEnemies = 0
 var enemiesKilled = 0
+var startTime = 0
+var cardTimer = 0
 
 signal waveClear
 signal startLevel(difficulty, level)
@@ -53,19 +55,28 @@ signal startLevel(difficulty, level)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Get the size of the screen and set our background to it
-	$ParallaxBackground/ParallaxLayer/Background.rect_size = get_viewport_rect().size
+	$ParallaxBackground/FarthestBack/Background.rect_size = get_viewport_rect().size
+	$ParallaxBackground/CloudsGround/Background.rect_size = get_viewport_rect().size
+	$ParallaxBackground/MidGround/Background.rect_size = get_viewport_rect().size
 	# Ensure our offset is 0,0 so top of background matches top of screen
 	$ParallaxBackground.scroll_base_offset = Vector2(0, 0)
 	# Set our motion mirroring to the screen size so the transition is smooth.
-	$ParallaxBackground/ParallaxLayer.motion_mirroring = (get_viewport_rect().size)
+	$ParallaxBackground/FarthestBack.motion_mirroring = (get_viewport_rect().size)
+	$ParallaxBackground/CloudsGround.motion_mirroring = (get_viewport_rect().size)
+	$ParallaxBackground/MidGround.motion_mirroring = (get_viewport_rect().size)
+	# Set different scroll speeds
+	$ParallaxBackground/FarthestBack.motion_scale.x = 1
+	$ParallaxBackground/CloudsGround.motion_scale.x = 1.5
+	$ParallaxBackground/MidGround.motion_scale.x = 3
+	
 	# Start our first level
 	emit_signal("startLevel", 0, 1)
-
+	$UserInterface.initUIVars(0, 5)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# 100 * delta is our scroll speed.
-	$ParallaxBackground.scroll_offset.x += 100 * delta
+	$ParallaxBackground.scroll_offset.x -= 20 * delta
 	pass
 	# Check if enemies are dead, if so, run wave clear
 	# if recieve end level signal, do end level things
@@ -82,7 +93,7 @@ func _process(delta):
 #		add_child(angel)
 		
 func _on_Angel_angelHit():
-	hitStop(0.2, 0.3)
+	#hitStop(0.2, 0.3)
 	playerScore += 10
 	$Player.experience += 5
 	print("+1 kills!")
@@ -92,6 +103,11 @@ func _on_Angel_angelHit():
 
 func _on_Player_playerHit(playerLives):
 	hitStop(0.1, 0.4)
+	
+	# lol
+	if(playerLives <= 0):
+		get_tree().quit()
+	
 	pass # Replace with function body.
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
