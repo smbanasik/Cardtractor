@@ -1,9 +1,32 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# How many bullet streams
+var bulletArrays = 1
+# Spread in between the arrays, by default 180 degrees
+var bulletArrSpread = PI
+# How many bullets per an array?
+var bulletArrNum = 1
+# The spread between the bullets within the array
+var bulletArrNumSpread = PI
+# When fired, which direction do bullets go?
+var startingAngle = 0
+# Uses polar coordinates (radius and angle offset from center), for example, a distance of 3 with an angle of pi
+var centerOffset = Vector2(0, 0)
+# Do bullets speed up / slow down / referse? How fast when they start?
+var acceleration = 0
+var velocity = 100
+# Should the emitter spin?
+# Add functions that let this be modified
+var spinRate = 0
+var maxSpin = 0
+# Changes the rate in which emitter spin
+var spinMod = 0
+# Might not be used since we just cull when off screen. We'll see
+#var lifeTime
+# Controlls how frequently bullets should fire in mS
+var fireRate = 1000
+# Sets the bullet type
+var bulletType
 
 # Emitters - Will serve as an abstraction between enemies and projectile positioning & such
 # - Main will still actually create the projectiles, but this way, it's easier to produce interesting projectile patterns
@@ -32,5 +55,6 @@ func _ready():
 func emitterInit():
 	pass
 	
+# Produce a projectile 
 func emitterFire():
 	pass
