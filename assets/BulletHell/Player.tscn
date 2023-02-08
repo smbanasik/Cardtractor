@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/BulletHell/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/BulletHell/temp_assets/Emitter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/BulletHell/temp_assets/playerHitBox.png" type="Texture" id=3]
 [ext_resource path="res://assets/BulletHell/temp_assets/playerStillRev02.png" type="Texture" id=4]
 
@@ -29,9 +28,6 @@ texture = ExtResource( 3 )
 
 [node name="ProjectilePoint" type="Node2D" parent="."]
 position = Vector2( 10, 0 )
-
-[node name="Emitter" parent="." instance=ExtResource( 2 )]
-scale = Vector2( 0.5, 0.5 )
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.32, 0.32 )

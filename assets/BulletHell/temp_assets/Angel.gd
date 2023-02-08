@@ -57,7 +57,11 @@ func _process(delta):
 		# If we haven't fired, go ahead and do so
 		if hasAngelFired == false:
 			hasAngelFired = true
-			emit_signal("angelFiring", "enemy", position, projectileRadians, projectileSpeed, projectileDamage)
+			# Causes angel to track player
+			#$Emitter.startingAngle = position.direction_to(get_node("/root/BulletHell/Player").position)
+			#print(get_node("/root/BulletHell/Player").position)
+			$Emitter.emitterFire()
+			#emit_signal("angelFiring", "enemy", position, projectileRadians, projectileSpeed, projectileDamage)
 		
 	position += velocity * delta
 	

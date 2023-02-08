@@ -5,14 +5,16 @@ extends Area2D
 # var a = 2
 # var b = "text"
 
+var acceleration = 0
 var startingVelocity = 200
-var direction = 0
+var direction = Vector2(0, 0)
 var damage = 1
 
-func init_proj(projPosition, projectileRadians, projSpeed, projDamage):
+func init_proj(projPosition, projectileDirection, projSpeed, projAcel, projDamage):
 	position = projPosition
-	direction = projectileRadians
+	direction = projectileDirection
 	startingVelocity = projSpeed
+	acceleration = projAcel
 	damage = projDamage
 
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +24,8 @@ func init_proj(projPosition, projectileRadians, projSpeed, projDamage):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var velocity = Vector2.RIGHT.rotated(direction) * startingVelocity
+	startingVelocity += acceleration * delta
+	var velocity = direction * startingVelocity
 	position += velocity * delta
 
 # Called from VisibilityNotifier2D

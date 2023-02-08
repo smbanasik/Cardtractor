@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/BulletHell/temp_assets/GenericEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/BulletHell/temp_assets/Angel.gd" type="Script" id=2]
+[ext_resource path="res://assets/BulletHell/temp_assets/Emitter.tscn" type="PackedScene" id=3]
 
 [node name="Angel" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="ThinkTime" type="Timer" parent="." index="3"]
+
+[node name="Emitter" parent="." index="4" instance=ExtResource( 3 )]
 
 [connection signal="area_entered" from="." to="." method="_on_Angel_area_entered"]
 [connection signal="timeout" from="ThinkTime" to="." method="_on_ThinkTime_timeout"]

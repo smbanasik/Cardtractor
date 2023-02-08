@@ -93,8 +93,9 @@ func _process(delta):
 	# Check if enemies are dead, if so, run wave clear
 	# if recieve end level signal, do end level things
 
-#func _unhandled_input(event):
-#	if event.is_action_pressed("left_click"):
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
+		get_tree().quit()
 #		emit_signal("startLevel", 0, 1)
 #		var angel = enemyAngel.instance()
 #		angel.init_angel(get_viewport().get_mouse_position())
@@ -118,7 +119,8 @@ func _on_Player_playerHit(playerLives):
 	self.playerLives = playerLives
 	# lol
 	if(playerLives <= 0):
-		get_tree().quit()
+		#get_tree().quit()
+		pass
 	
 	pass # Replace with function body.
 		
@@ -148,8 +150,9 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 			createdEnemy.init_angel(enemyData[0], enemyData[1], enemyData[2], enemyData[3])
 			createdEnemy.init_angelTargetArray(enemyMovement[0], enemyMovement[1])
 			# Connect main to angel's signals
-			createdEnemy.connect("angelFiring", self, "_on_Angel_angelFiring")
+			#createdEnemy.connect("angelFiring", self, "_on_Angel_angelFiring")
 			createdEnemy.connect("angelHit", self, "_on_Angel_angelHit")
+			createdEnemy.get_node("Emitter").connect("emitProjectile", self, "_on_AngelEmitter_emitFire")
 			add_child(createdEnemy)
 			pass
 	
@@ -157,11 +160,17 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 	# Might be desireable, if not, can fix.
 	waveEnemies += 1
 
+func _on_AngelEmitter_emitFire(fireArr):
+	var angelSphere = projectileSphere.instance()
+	angelSphere.init_proj(fireArr[0], fireArr[1], fireArr[2], fireArr[3], 1)
+	angelSphere.add_to_group("enemy")
+	add_child(angelSphere)
+	pass
 
 func _on_EnemyManager_endLevel(level):
 	print("Level ended, moving on to level: " + str(level))
 	#Handle next level things
-	pass # Replace with function body.
+	pass
 	
 	
 # Example, 0.1, 0.4 seconds or so
