@@ -18,9 +18,10 @@ func init_proj(projPosition, projectileDirection, projSpeed, projAcel, projDamag
 	damage = projDamage
 
 # Called when the node enters the scene tree for the first time.
-#func _ready():
-#	monitorable = true
-
+func _ready():
+	#monitorable = true
+	monitoring = false
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

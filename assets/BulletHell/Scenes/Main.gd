@@ -162,8 +162,8 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 
 func _on_AngelEmitter_emitFire(fireArr):
 	var angelSphere = projectileSphere.instance()
-	angelSphere.init_proj(fireArr[0], fireArr[1], fireArr[2], fireArr[3], 1)
-	angelSphere.add_to_group("enemy")
+	angelSphere.init_proj(fireArr[1], fireArr[4], fireArr[2], fireArr[3], 1)
+	angelSphere.add_to_group(fireArr[0])
 	add_child(angelSphere)
 	pass
 

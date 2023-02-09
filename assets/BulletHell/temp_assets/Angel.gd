@@ -29,6 +29,9 @@ signal angelFiring(projTeam, projectilePosition, projectileRadians, projectileSp
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	$Emitter.bulletArrays = 2
+	$Emitter.bulletNum = 2
+	$Emitter.spinRate = 0.1
 #	monitoring = true
 	if useTargetArray == false:
 		$ThinkTime.start()
@@ -47,7 +50,7 @@ func _process(delta):
 	#position = position.linear_interpolate(angelTargetPoint, delta)
 	
 	# Angel moves to ThinkPoint
-	if position.distance_to(angelTargetPoint) > 2:
+	if position.distance_to(angelTargetPoint) > 5:
 		velocity = position.direction_to(angelTargetPoint) * angelSpeed
 	else:
 		# We've hit to our point, if we're using a target array, we should start our timer.
