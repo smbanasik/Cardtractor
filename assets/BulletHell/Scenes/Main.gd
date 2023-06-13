@@ -38,10 +38,10 @@
 
 extends Node2D
 
-export(PackedScene) var projectileSphere
-export(PackedScene) var projectileCurved
-export(PackedScene) var projectileSine
-export(PackedScene) var enemyAngel
+@export var projectileSphere: PackedScene
+@export var projectileCurved: PackedScene
+@export var projectileSine: PackedScene
+@export var enemyAngel: PackedScene
 
 var waveEnemies = 0
 var enemiesKilled = 0
@@ -59,9 +59,9 @@ signal startLevel(difficulty, level)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Get the size of the screen and set our background to it
-	$ParallaxBackground/FarthestBack/Background.rect_size = get_viewport_rect().size
-	$ParallaxBackground/CloudsGround/Background.rect_size = get_viewport_rect().size
-	$ParallaxBackground/MidGround/Background.rect_size = get_viewport_rect().size
+	$ParallaxBackground/FarthestBack/Background.size = get_viewport_rect().size
+	$ParallaxBackground/CloudsGround/Background.size = get_viewport_rect().size
+	$ParallaxBackground/MidGround/Background.size = get_viewport_rect().size
 	# Ensure our offset is 0,0 so top of background matches top of screen
 	$ParallaxBackground.scroll_base_offset = Vector2(0, 0)
 	# Set our motion mirroring to the screen size so the transition is smooth.
@@ -125,7 +125,7 @@ func _on_Player_playerHit(playerLives):
 	pass # Replace with function body.
 		
 func _on_Angel_angelFiring(projTeam, projectilePosition, projectileRadians, projectileSpeed, projectileDamage):
-	var angelSphere = projectileSphere.instance()
+	var angelSphere = projectileSphere.instantiate()
 	angelSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	angelSphere.add_to_group(projTeam)
 	add_child(angelSphere)
@@ -135,7 +135,7 @@ func _on_Player_playerFiring(projTeam, projectilePosition, projectileRadians, pr
 	#projSphere.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage)
 	#add_child(projSphere)
 	
-	var projSine = projectileSine.instance()
+	var projSine = projectileSine.instantiate()
 	projSine.init_proj(projectilePosition, projectileRadians, projectileSpeed, projectileDamage, 0.2, 1)
 	projSine.add_to_group(projTeam)
 	add_child(projSine)
@@ -146,13 +146,13 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 	
 	match [enemyType]:
 		["angel"]:
-			createdEnemy = enemyAngel.instance()
+			createdEnemy = enemyAngel.instantiate()
 			createdEnemy.init_angel(enemyData[0], enemyData[1], enemyData[2], enemyData[3])
 			createdEnemy.init_angelTargetArray(enemyMovement[0], enemyMovement[1])
 			# Connect main to angel's signals
 			#createdEnemy.connect("angelFiring", self, "_on_Angel_angelFiring")
-			createdEnemy.connect("angelHit", self, "_on_Angel_angelHit")
-			createdEnemy.get_node("Emitter").connect("emitProjectile", self, "_on_AngelEmitter_emitFire")
+			createdEnemy.connect("angelHit", Callable(self, "_on_Angel_angelHit"))
+			createdEnemy.get_node("Emitter").connect("emitProjectile", Callable(self, "_on_AngelEmitter_emitFire"))
 			add_child(createdEnemy)
 			pass
 	
@@ -161,7 +161,7 @@ func _on_EnemyManager_spawnEnemy(enemyType, enemyData, enemyMovement):
 	waveEnemies += 1
 
 func _on_AngelEmitter_emitFire(fireArr):
-	var angelSphere = projectileSphere.instance()
+	var angelSphere = projectileSphere.instantiate()
 	angelSphere.init_proj(fireArr[1], fireArr[4], fireArr[2], fireArr[3], 1)
 	angelSphere.add_to_group(fireArr[0])
 	add_child(angelSphere)
@@ -178,5 +178,5 @@ func hitStop(timeScale, duration):
 	# Lower time scale to value
 	Engine.time_scale = timeScale
 	# Create a timer and wait until it's timeout occurs
-	yield(get_tree().create_timer(duration * timeScale), "timeout")
+	await get_tree().create_timer(duration * timeScale).timeout
 	Engine.time_scale = 1.0

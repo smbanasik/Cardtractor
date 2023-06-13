@@ -1,0 +1,4 @@
+res://assets/BulletHell/default_env.tres
+res://assets/BulletHell/Scenes/Main.tscn
+res://assets/BulletHell/ScriptsScenes/Systems/UI.tscn
+res://assets/BulletHell/Player.tscn

@@ -1,60 +1,57 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://b70nvw1nkhl2j"]
 
-[ext_resource path="res://assets/BulletHell/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileBasic.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileCurved.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/BulletHell/temp_assets/Angel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileSine.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/BulletHell/Scenes/Main.gd" type="Script" id=6]
-[ext_resource path="res://assets/BulletHell/ScriptsScenes/Systems/EnemyManager.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/BulletHell/Sprites/Backgrounds/castleOne.png" type="Texture" id=8]
-[ext_resource path="res://assets/BulletHell/Sprites/Backgrounds/cloudsOne.png" type="Texture" id=9]
-[ext_resource path="res://assets/BulletHell/Sprites/Backgrounds/gradientOne.png" type="Texture" id=10]
-[ext_resource path="res://assets/BulletHell/ScriptsScenes/Systems/UI.tscn" type="PackedScene" id=11]
+[ext_resource type="PackedScene" uid="uid://rikhmegpq1rx" path="res://assets/BulletHell/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileBasic.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileCurved.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://assets/BulletHell/temp_assets/Angel.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileSine.tscn" id="5"]
+[ext_resource type="Script" path="res://assets/BulletHell/Scenes/Main.gd" id="6"]
+[ext_resource type="PackedScene" path="res://assets/BulletHell/ScriptsScenes/Systems/EnemyManager.tscn" id="7"]
+[ext_resource type="Texture2D" uid="uid://d0tdv6u5a0yu" path="res://assets/BulletHell/Sprites/Backgrounds/castleOne.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://c30bx8qbtlwdb" path="res://assets/BulletHell/Sprites/Backgrounds/cloudsOne.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://b3v2u5jr8qj8f" path="res://assets/BulletHell/Sprites/Backgrounds/gradientOne.png" id="10"]
+[ext_resource type="PackedScene" uid="uid://bbx2u46bd2lh5" path="res://assets/BulletHell/ScriptsScenes/Systems/UI.tscn" id="11"]
 
 [node name="BulletHell" type="Node2D"]
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_lock_": true
-}
-projectileSphere = ExtResource( 2 )
-projectileCurved = ExtResource( 3 )
-projectileSine = ExtResource( 5 )
-enemyAngel = ExtResource( 4 )
+script = ExtResource("6")
+projectileSphere = ExtResource("2")
+projectileCurved = ExtResource("3")
+projectileSine = ExtResource("5")
+enemyAngel = ExtResource("4")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_base_offset = Vector2( 640, 360 )
+scroll_base_offset = Vector2(640, 360)
 
 [node name="FarthestBack" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Background" type="TextureRect" parent="ParallaxBackground/FarthestBack"]
-margin_right = 1280.0
-margin_bottom = 720.0
-texture = ExtResource( 10 )
-expand = true
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("10")
+expand_mode = 1
 
 [node name="CloudsGround" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Background" type="TextureRect" parent="ParallaxBackground/CloudsGround"]
-margin_right = 1280.0
-margin_bottom = 720.0
-texture = ExtResource( 9 )
-expand = true
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("9")
+expand_mode = 1
 
 [node name="MidGround" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Background" type="TextureRect" parent="ParallaxBackground/MidGround"]
-margin_right = 1280.0
-margin_bottom = 720.0
-texture = ExtResource( 8 )
-expand = true
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("8")
+expand_mode = 1
 
-[node name="UserInterface" parent="." instance=ExtResource( 11 )]
+[node name="UserInterface" parent="." instance=ExtResource("11")]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 86, 199 )
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(86, 199)
 
-[node name="EnemyManager" parent="." instance=ExtResource( 7 )]
+[node name="EnemyManager" parent="." instance=ExtResource("7")]
 
 [connection signal="startLevel" from="." to="EnemyManager" method="_on_Node2D_startLevel"]
 [connection signal="waveClear" from="." to="EnemyManager" method="_on_BulletHell_waveClear"]

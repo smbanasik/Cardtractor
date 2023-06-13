@@ -9,36 +9,36 @@ extends Node2D
 signal emitProjectile(projArray)
 
 # How many bullet streams
-export var bulletArrays = 1
+@export var bulletArrays = 1
 # Spread in between the arrays, by default 180 degrees
-export var bulletArrSpread = PI
+@export var bulletArrSpread = PI
 # How many bullets per an array?
-export var bulletNum = 1
+@export var bulletNum = 1
 # The spread between the bullets within the array
-export var bulletNumSpread = PI / 2
+@export var bulletNumSpread = PI / 2
 # When fired, which direction do bullets go?
-export var startingAngle = Vector2.LEFT
+@export var startingAngle = Vector2.LEFT
 # Uses polar coordinates (radius and angle offset from center), for example, a distance of 3 with an angle of pi
 # 0 points to the rgith, like with math coords
 ### TODO: add function that let us modify this frame by frame
-export var centerOffset = Vector2(0, 0)
+@export var centerOffset = Vector2(0, 0)
 # Do bullets speed up / slow down / referse? How fast when they start?
-export var acceleration = 0
-export var velocity = 100
+@export var acceleration = 0
+@export var velocity = 100
 # Should the emitter spin?
 # Add functions that let this be modified
-export var spinRate = 0
-export var spinMax = 2 * PI
+@export var spinRate = 0
+@export var spinMax = 2 * PI
 # Changes the rate in which emitter spin
-export var spinMod = 0
+@export var spinMod = 0
 # Might not be used since we just cull when off screen. We'll see
 #var lifeTime
 # Controlls how frequently bullets should fire in ms
 #var fireRate = 1000
 # Sets the bullet type
-export var bulletType = "basic"
+@export var bulletType = "basic"
 # Team that the projectile is on
-export var projTeam = "enemy"
+@export var projTeam = "enemy"
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():

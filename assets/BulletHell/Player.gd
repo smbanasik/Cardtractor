@@ -6,13 +6,13 @@ extends Area2D
 # var b = "text"
 
 var screen_size
-export var playerSpeed = 300
-export var playerFastMultiplier = 0.5
+@export var playerSpeed = 300
+@export var playerFastMultiplier = 0.5
 var playerLives =  5
 var experience = 0
 # Likely to be replaced by emitter system
-export var projectileBaseSpeed = 500
-export var projectileDamage = 1
+@export var projectileBaseSpeed = 500
+@export var projectileDamage = 1
 var projectileRadians = 0
 var coolDownSpeed = 0.1
 var coolDowntime = coolDownSpeed

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/BulletHell/Sprites/ProjectileTypes/projectile_type_c.png" type="Texture" id=1]
+[ext_resource path="res://assets/BulletHell/Sprites/ProjectileTypes/projectile_type_c.png" type="Texture2D" id=1]
 [ext_resource path="res://assets/BulletHell/ScriptsScenes/ProjectileTypes/ProjectileBasic.gd" type="Script" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -19,13 +19,13 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 1 )
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.6, 0.8 )
 shape = SubResource( 2 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

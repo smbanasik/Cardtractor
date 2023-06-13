@@ -5,12 +5,12 @@ extends Area2D
 # var a = 2
 # var b = "text"
 var screen_size
-export var angelSpeed = 200
+@export var angelSpeed = 200
 # Max distance an angel can randomly move
-export var angelMaxDistance = 60
+@export var angelMaxDistance = 60
 # This system will likely be replaced by emitters
-export var projectileSpeed = 100
-export var projectileDamage = 1
+@export var projectileSpeed = 100
+@export var projectileDamage = 1
 var projectileRadians = PI
 var hasAngelFired = true
 #var coolDownSpeed = 0.1
